@@ -29,4 +29,4 @@ We have 4 todo's that are categorized as one of the following:
 - Wife calls husband, asks him to pick up celery on the way home.. Husband opens "SMART-TODO"
 and types in "Don't forget to pick up the celery". SMART-TODO takes this data and sorts it into the appopriate list, in this case, Products(To buy).
 
-- 
+
