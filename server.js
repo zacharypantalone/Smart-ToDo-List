@@ -53,7 +53,7 @@ app.get("/index", (req, res) => {
 });
 
 app.get("/main", (req, res) => {
-  res.render("urls_main");
+  res.render("main");
 });
 
 app.listen(PORT, () => {
@@ -63,7 +63,7 @@ app.listen(PORT, () => {
 
 
 
-app.get('/index/:id', (req, res) => {
+app.get('/main', (req, res) => {
   // using encrypted cookies
   req.session.user_id = req.params.id;
 
