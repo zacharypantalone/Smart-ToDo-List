@@ -60,14 +60,16 @@ app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-app.post("/login", (req, res) => {
-  const name = req.body.name;
 
 
 
+app.get('/index/:id', (req, res) => {
+  // using encrypted cookies
+  //req.session.user_id = req.params.id;
 
+  // or using plain-text cookies
+  //res.cookie('user_id', req.params.id);
 
-
-  res.redirect('/main');
+  // send the user somewhere
+  res.redirect('/urls_main');
 });
-
