@@ -63,9 +63,9 @@ app.listen(PORT, () => {
 
 
 
-app.get('/main', (req, res) => {
+app.post('/main', (req, res) => {
   // using encrypted cookies
-  req.session.user_id = req.params.id;
+  // req.session.user_id = req.params.id;
 
   // or using plain-text cookies
   res.cookie('user_id', req.params.id);
