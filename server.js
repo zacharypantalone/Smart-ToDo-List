@@ -65,10 +65,10 @@ app.listen(PORT, () => {
 
 app.post('/main', (req, res) => {
   // using encrypted cookies
-  // req.session.user_id = req.params.id;
+  req.session.username = req.params.username;
 
   // or using plain-text cookies
-  res.cookie(req.params.id);
+  res.cookie(req.params.username);
 
   // send the user somewhere
   res.redirect('/main');
