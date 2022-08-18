@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieParser = require('cookie-parser');
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -18,6 +19,7 @@ db.connect();
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -53,7 +55,9 @@ app.get("/index", (req, res) => {
 });
 
 app.get("/main", (req, res) => {
-  res.render("main");
+  const templateVars = { username: req.cookies.username };
+  console.log(req.cookies.username);
+  res.render("main", templateVars);
 });
 
 app.listen(PORT, () => {
@@ -64,11 +68,14 @@ app.listen(PORT, () => {
 
 
 app.post('/main', (req, res) => {
-  // using encrypted cookies
-  req.session.username = req.params.username;
+  // using encrypted cookies\
+
+  const username = req.body.username;
+
+  // req.session.username = req.params.username;
 
   // or using plain-text cookies
-  res.cookie(req.params.username);
+  res.cookie("username", username);
 
   // send the user somewhere
   res.redirect('/main');
