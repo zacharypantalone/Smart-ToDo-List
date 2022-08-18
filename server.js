@@ -60,5 +60,14 @@ app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
+app.post("/login", (req, res) => {
+  const name = req.body.name;
 
+
+
+
+
+
+  res.redirect('/main');
+});
 
