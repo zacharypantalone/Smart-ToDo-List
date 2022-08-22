@@ -50,8 +50,8 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/index", (req, res) => {
-  res.render("index");
+app.get("/login", (req, res) => {
+  res.render("login");
 });
 
 app.get("/main", (req, res) => {
