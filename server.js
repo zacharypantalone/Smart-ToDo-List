@@ -54,6 +54,7 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+
 app.get("/main", (req, res) => {
   const templateVars = { username: req.cookies.username };
   console.log(req.cookies.username);
@@ -63,8 +64,6 @@ app.get("/main", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
-
 
 
 app.post('/main', (req, res) => {
