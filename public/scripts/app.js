@@ -42,6 +42,12 @@ const onSubmit = async function(event) {
   });
 };
 
+const injectionProtection = function(str) {
+  let div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 const createReminderElement = (reminderData) => {
   const ago = timeago.format(reminderData.created_at);
   const reminderHtml = `<article class="tweet">
@@ -52,7 +58,7 @@ const createReminderElement = (reminderData) => {
           <h5>${reminderData.user.handle}</h5>
         </div>
         <div class="tweet-text">
-          <p>${escape(reminderData.content.text)}</p>
+          <p>${injectionProtection(reminderData.content.text)}</p>
         </div>
       </div>
       <footer class="time-stamp">
@@ -74,7 +80,7 @@ const createReminderElement = (reminderData) => {
 $(document).ready(async function() {
   $(".form-inline").on("submit", onSubmit);
 
-  const data = await loadTweets();
+  const data = await loadReminders();
   console.log(data);
-  renderTweets(data);
+  renderReminders(data);
 });
