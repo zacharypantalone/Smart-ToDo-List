@@ -54,22 +54,24 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/register", (req, res) => {
-  res.render("register");
+app.get("/main", (req, res) => {
+  const templateVars = { username: req.cookies.username };
+  console.log(req.cookies.username);
+  res.render("main", templateVars);
 });
 
 app.get("/profile", (req, res) => {
   res.render("profile");
 });
 
-
-
-
-app.get("/main", (req, res) => {
-  const templateVars = { username: req.cookies.username };
-  console.log(req.cookies.username);
-  res.render("main", templateVars);
+app.get("/register", (req, res) => {
+  res.render("register");
 });
+
+
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
