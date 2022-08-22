@@ -54,6 +54,10 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
+app.get("/register", (req, res) => {
+  res.render("register");
+});
+
 
 app.get("/main", (req, res) => {
   const templateVars = { username: req.cookies.username };
