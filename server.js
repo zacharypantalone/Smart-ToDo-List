@@ -58,7 +58,7 @@ app.get("/main", (req, res) => {
   db.query(`SELECT name FROM users WHERE id = $1;`, [req.cookies.username])
     .then((result) => {
       const templateVars = { username: result.rows[0].name };
-
+      console.log('Hey ed');
       res.render("main", templateVars);
     });
 
