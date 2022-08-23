@@ -88,13 +88,14 @@ app.post('/main', (req, res) => {
 
   const username = req.body.username;
 
-  // req.session.username = req.params.username;
+  db.query(`SELECT * FROM users WHERE name = $1;`, [username])
+    .then((result) =>  {
 
-  // or using plain-text cookies
-  res.cookie("username", username);
+      const id = result.rows[0].id;
+      res.cookie("username", id).redirect('/main');
+    });
 
-  // send the user somewhere
-  res.redirect('/main');
+
 });
 
 
