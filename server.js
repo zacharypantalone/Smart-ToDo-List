@@ -124,16 +124,16 @@ app.post('/register', (req, res) => {
   let id;
   db.query(`INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *;`, [name, password])
     .then((result) =>  {
-      
+
       id = result.rows[0].id;
+      res.cookie("username", id).redirect('/main');
     })
 
     .catch((err) => {
       console.log(err.message);
     });
-  console.log(id);
-  res.cookie("username", id);
-  res.redirect('/main');
+  
+
 });
 
 
