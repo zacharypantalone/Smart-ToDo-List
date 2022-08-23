@@ -8,6 +8,8 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieParser = require('cookie-parser');
+const axios = require('axios');
+
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -58,7 +60,7 @@ app.get("/main", (req, res) => {
   db.query(`SELECT name FROM users WHERE id = $1;`, [req.cookies.username])
     .then((result) => {
       const templateVars = { username: result.rows[0].name };
-      
+
       res.render("main", templateVars);
     });
 
@@ -113,14 +115,35 @@ app.post('/reminder/json', (req, res) => {
 
   db.query(`INSERT INTO lists_todo (title, user_id) VALUES ($1, $2) RETURNING *;`, [data, req.cookies.username])
     .then((result) =>  {
-      console.log(result.rows[0]);
-      res.json(result.rows[0]);
-    })
+      const options = {
+        method: 'GET',
+        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${data}`,
+        headers: {
+          'X-User-Agent': 'desktop',
+          'X-Proxy-Location': 'EU',
+          'X-RapidAPI-Key': '8f9fa3a9bemsh3da9a9c90adb9b5p1b07fajsn44bb79f22c85',
+          'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
+        }
+      };
+      axios.request(options).then(function(response) {
+        console.log("response", response.data);
+      }).catch(function(error) {
+        console.error(error);
+      });
 
+      console.log(result.rows[0]);
+    })
     .catch((err) => {
       console.log(err.message);
     });
 });
+
+
+
+
+
+
+
 
 
 
@@ -141,5 +164,6 @@ app.post('/register', (req, res) => {
 
 
 });
+
 
 
