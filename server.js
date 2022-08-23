@@ -55,9 +55,14 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/main", (req, res) => {
-  const templateVars = { username: req.cookies.username };
-  console.log("hey!", req.cookies.username);
-  res.render("main", templateVars);
+  db.query(`SELECT name FROM users WHERE id = $1;`, [req.cookies.username])
+    .then((result) => {
+      const templateVars = { username: result.rows[0].name };
+
+      res.render("main", templateVars);
+    });
+
+
 });
 
 app.get("/profile", (req, res) => {
@@ -105,7 +110,7 @@ app.get('/reminder/json', (req, res) => {
 app.post('/reminder/json', (req, res) => {
   const data = req.body.text;
 
-  db.query(`INSERT INTO lists_todo (title) VALUES ($1) JOIN users ON users.id = user_id RETURNING *;`, [data])
+  db.query(`INSERT INTO lists_todo (title, user_id) VALUES ($1, $2) RETURNING *;`, [data, req.cookies.username])
     .then((result) =>  {
       console.log(result.rows[0]);
       res.json(result.rows[0]);
@@ -132,7 +137,7 @@ app.post('/register', (req, res) => {
     .catch((err) => {
       console.log(err.message);
     });
-  
+
 
 });
 
