@@ -56,7 +56,7 @@ app.get("/login", (req, res) => {
 
 app.get("/main", (req, res) => {
   const templateVars = { username: req.cookies.username };
-  console.log(req.cookies.username);
+  console.log("hey!", req.cookies.username);
   res.render("main", templateVars);
 });
 
@@ -92,6 +92,7 @@ app.post('/main', (req, res) => {
   res.redirect('/main');
 });
 
+
 app.get('/reminder/json', (req, res) => {
   db.query(`SELECT * FROM lists_todo;`)
     .then((result) => {
@@ -104,7 +105,7 @@ app.get('/reminder/json', (req, res) => {
 app.post('/reminder/json', (req, res) => {
   const data = req.body.text;
 
-  db.query(`INSERT INTO  lists_todo (title) VALUES ($1) RETURNING *;`, [data])
+  db.query(`INSERT INTO lists_todo (title) VALUES ($1) JOIN users ON users.id = user_id RETURNING *;`, [data])
     .then((result) =>  {
       console.log(result.rows[0]);
       res.json(result.rows[0]);
@@ -114,3 +115,25 @@ app.post('/reminder/json', (req, res) => {
       console.log(err.message);
     });
 });
+
+
+
+app.post('/register', (req, res) => {
+  const name = req.body.username;
+  const password = req.body.password;
+  let id;
+  db.query(`INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *;`, [name, password])
+    .then((result) =>  {
+      
+      id = result.rows[0].id;
+    })
+
+    .catch((err) => {
+      console.log(err.message);
+    });
+  console.log(id);
+  res.cookie("username", id);
+  res.redirect('/main');
+});
+
+
