@@ -5,6 +5,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script defer type="text/javascript" src="/scripts/app.js"></script>
+
+
   <title>Smart TODO</title>
 </head>
 
@@ -12,6 +18,33 @@
   <p>logged in as: <%= username %></p>
   <h1>hey hey hey hey</h1>
   <p>Hello world</p>
+  <div class="container">
+    <h1 style="text-align:center;">Simple Html Button</h1>
+    <a href="/profile">
+        <button class="btn btn-primary btn-lg">Edit Profile</button>
+    </a>
+</div>
+
+
+  <div class="container">
+    <h1 style="text-align:center;">Simple Html Button</h1>
+      <form class="form-inline">
+        <textarea name="text" id="reminder-text" placeholder="What do you want to remember later?"></textarea>
+        <button class="btn btn-primary btn-lg">Submit</button>
+      </form>
+
+</div>
+</div>
+  <div class="container">
+    <h1 style="text-align:center;">Simple Html Button</h1>
+    <a href="/login">
+        <button class="btn btn-primary btn-lg">Logout</button>
+    </a>
+</div>
+
+<div class="reminder-container">
+<!-- this is where all the reminders will go  -->
+</div>
 
 </body>
 
