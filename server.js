@@ -91,3 +91,26 @@ app.post('/main', (req, res) => {
   // send the user somewhere
   res.redirect('/main');
 });
+
+app.get('/reminder/json', (req, res) => {
+  db.query(`SELECT * FROM lists_todo;`)
+    .then((result) => {
+      res.json(result.rows);
+    });
+
+});
+
+
+app.post('/reminder/json', (req, res) => {
+  const data = req.body.text;
+
+  db.query(`INSERT INTO  lists_todo (title) VALUES ($1) RETURNING *;`, [data])
+    .then((result) =>  {
+      console.log(result.rows[0]);
+      res.json(result.rows[0]);
+    })
+
+    .catch((err) => {
+      console.log(err.message);
+    });
+});

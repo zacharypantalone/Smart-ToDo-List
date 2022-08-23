@@ -1,7 +1,7 @@
 // Client facing scripts here
 const loadReminders = async function() {
   let reminders = [];
-  await $.get("/reminder").then((array) => {
+  await $.get("/reminder/json").then((array) => {
     console.log(array);
     reminders = [...array];
   });
@@ -11,10 +11,10 @@ const loadReminders = async function() {
 
 const renderReminders = function(tweets) {
   $("#reminders-container").html(' ');
-  for (let tweet of tweets) {
-    const text = createReminderElement(tweet);
-    $("#reminders-container").append(text);
-  }
+  // for (let tweet of tweets) {
+  //   const text = createReminderElement(tweet);
+  //   $("#reminders-container").append(text);
+  // }
 };
 
 const onSubmit = async function(event) {
@@ -33,8 +33,9 @@ const onSubmit = async function(event) {
   //   setTimeout(() => $('#errorTwo').slideUp(), 3000);
   //   return;
   // }
+  console.log(form);
 
-  $.post("/reminder", data).then(async() => {
+  $.post("/reminder/json", data).then(async() => {
 
     const data = await loadReminders();
     renderReminders(data);
@@ -75,16 +76,7 @@ const createReminderElement = (reminderData) => {
 
 // MAKE SURE TO ASK A MENTOR IF IT'S APPROPRIATE FOR THIS TO BE IN HERE //
 
-const addReminder = function(reminder) {
-  const sql = `INSERT INTO   (title, description, owner_id, cover_photo_url, thumbnail_photo_url, cost_per_night, parking_spaces, number_of_bathrooms, number_of_bedrooms, active, province, city, country, street, post_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *;`;
 
-  return pool.query(sql, [property.title, property.description, property.owner_id, property.cover_photo_url, property.thumbnail_photo_url, property.cost_per_night, property.parking_spaces, property.number_of_bathrooms, property.number_of_bedrooms, DEFAULT_ACTIVE_VALUE, property.province, property.city, property.country, property.street, property.post_code])
-    .then((result) => result.rows[0])
-
-    .catch((err) => {
-      console.log(err.message);
-    });
-};
 
 
 
