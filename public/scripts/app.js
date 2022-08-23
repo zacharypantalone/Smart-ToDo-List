@@ -54,7 +54,7 @@ const createReminderElement = (reminderData) => {
   const reminderHtml = `<article class="tweet">
         <div class="tweet-content">
           <div class="name-and-user-img">
-            <img class="user-img" src="${reminderData.user.avatars}">
+            <img class="user-img" src="${reminderData.user.category_id}">
           <h3>${reminderData.user.name}</h3>
           <h5>${reminderData.user.handle}</h5>
         </div>
