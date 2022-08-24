@@ -13,7 +13,7 @@ const renderReminders = function(reminders) {
   $("#reminder-container").empty();
   for (let reminder of reminders) {
     const text = createReminderElement(reminder);
-    $("#reminder-container").append(text);
+    $("#reminder-container").prepend(text);
   }
 };
 
@@ -38,6 +38,7 @@ const onSubmit = async function(event) {
   $.post("/reminder/json", data).then(async() => {
 
     const data = await loadReminders();
+    console.log("data", data);
     renderReminders(data);
     this.reset();
   });
@@ -50,12 +51,12 @@ const injectionProtection = function(str) {
 };
 
 const createReminderElement = (reminderData) => {
-  console.log(reminderData);
-  const ago = timeago.format(reminderData.create_date);
+
+  const ago = timeago.format(reminderData.date);
   const reminderHtml = `<article class="tweet">
         <div class="tweet-content">
           <div class="name-and-user-img">
-            <img class="user-img" src="${reminderData.category_id}">
+            <img class="user-img" src="${reminderData.img}">
             </div>
             <div class="tweet-text">
               <p>${injectionProtection(reminderData.title)}</p>
@@ -86,6 +87,6 @@ $(document).ready(async function() {
   $(".form-inline").on("submit", onSubmit);
 
   const data = await loadReminders();
-  console.log(data);
+  console.log("data2", data);
   renderReminders(data);
 });

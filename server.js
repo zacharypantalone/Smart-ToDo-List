@@ -104,7 +104,27 @@ app.post('/main', (req, res) => {
 app.get('/reminder/json', (req, res) => {
   db.query(`SELECT * FROM lists_todo;`)
     .then((result) => {
-      res.json(result.rows);
+      const options = {
+        method: 'GET',
+        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=blade`,
+        headers: {
+          'X-User-Agent': 'desktop',
+          'X-Proxy-Location': 'EU',
+          'X-RapidAPI-Key': '8f9fa3a9bemsh3da9a9c90adb9b5p1b07fajsn44bb79f22c85',
+          'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
+        }
+      };
+      axios.request(options).then(function(response) {
+        console.log("response", response.data.image_results[0].image.src);
+        const imageData = result.rows.map(function(data) {
+          return {
+            img: response.data.image_results[0].image.src, id: data.id, title: data.title, date: data.create_date
+          }});
+        res.json(imageData);
+      }).catch(function(error) {
+        console.error(error);
+      });
+
     });
 
 });
@@ -126,7 +146,8 @@ app.post('/reminder/json', (req, res) => {
         }
       };
       axios.request(options).then(function(response) {
-        console.log("response", response.data);
+        console.log("response", response.data.image_results[0].image.src);
+        res.json({ img: response.data.image_results[0].image.src });
       }).catch(function(error) {
         console.error(error);
       });
