@@ -8,6 +8,8 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieParser = require('cookie-parser');
+const axios = require('axios');
+
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -55,9 +57,14 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/main", (req, res) => {
-  const templateVars = { username: req.cookies.username };
-  console.log(req.cookies.username);
-  res.render("main", templateVars);
+  db.query(`SELECT name FROM users WHERE id = $1;`, [req.cookies.username])
+    .then((result) => {
+      const templateVars = { username: result.rows[0].name };
+
+      res.render("main", templateVars);
+    });
+
+
 });
 
 app.get("/profile", (req, res) => {
@@ -83,19 +90,41 @@ app.post('/main', (req, res) => {
 
   const username = req.body.username;
 
-  // req.session.username = req.params.username;
+  db.query(`SELECT * FROM users WHERE name = $1;`, [username])
+    .then((result) =>  {
 
-  // or using plain-text cookies
-  res.cookie("username", username);
+      const id = result.rows[0].id;
+      res.cookie("username", id).redirect('/main');
+    });
 
-  // send the user somewhere
-  res.redirect('/main');
+
 });
+
 
 app.get('/reminder/json', (req, res) => {
   db.query(`SELECT * FROM lists_todo;`)
     .then((result) => {
-      res.json(result.rows);
+      const options = {
+        method: 'GET',
+        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=blade`,
+        headers: {
+          'X-User-Agent': 'desktop',
+          'X-Proxy-Location': 'EU',
+          'X-RapidAPI-Key': '8f9fa3a9bemsh3da9a9c90adb9b5p1b07fajsn44bb79f22c85',
+          'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
+        }
+      };
+      axios.request(options).then(function(response) {
+        console.log("response", response.data.image_results[0].image.src);
+        const imageData = result.rows.map(function(data) {
+          return {
+            img: response.data.image_results[0].image.src, id: data.id, title: data.title, date: data.create_date
+          }});
+        res.json(imageData);
+      }).catch(function(error) {
+        console.error(error);
+      });
+
     });
 
 });
@@ -104,13 +133,58 @@ app.get('/reminder/json', (req, res) => {
 app.post('/reminder/json', (req, res) => {
   const data = req.body.text;
 
-  db.query(`INSERT INTO  lists_todo (title) VALUES ($1) RETURNING *;`, [data])
+  db.query(`INSERT INTO lists_todo (title, user_id) VALUES ($1, $2) RETURNING *;`, [data, req.cookies.username])
     .then((result) =>  {
+      const options = {
+        method: 'GET',
+        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${data}`,
+        headers: {
+          'X-User-Agent': 'desktop',
+          'X-Proxy-Location': 'EU',
+          'X-RapidAPI-Key': '8f9fa3a9bemsh3da9a9c90adb9b5p1b07fajsn44bb79f22c85',
+          'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
+        }
+      };
+      axios.request(options).then(function(response) {
+        console.log("response", response.data.image_results[0].image.src);
+        res.json({ img: response.data.image_results[0].image.src });
+      }).catch(function(error) {
+        console.error(error);
+      });
+
       console.log(result.rows[0]);
-      res.json(result.rows[0]);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+});
+
+
+
+
+
+
+
+
+
+
+app.post('/register', (req, res) => {
+  const name = req.body.username;
+  const password = req.body.password;
+  let id;
+  db.query(`INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *;`, [name, password])
+    .then((result) =>  {
+
+      id = result.rows[0].id;
+      res.cookie("username", id).redirect('/main');
     })
 
     .catch((err) => {
       console.log(err.message);
     });
+
+
 });
+
+
+
