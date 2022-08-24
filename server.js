@@ -104,9 +104,12 @@ app.post('/main', (req, res) => {
 app.get('/reminder/json', (req, res) => {
   db.query(`SELECT * FROM lists_todo;`)
     .then((result) => {
+      console.log("This is result:", result);
+      const input = result.rows[0].title;
+      console.log("This is input:", input);
       const options = {
         method: 'GET',
-        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=blade`,
+        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${input}`,
         headers: {
           'X-User-Agent': 'desktop',
           'X-Proxy-Location': 'EU',
