@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express.Router();
 const axios = require("axios");
-const { isolateVerb, isolateNoun } = require('../helper.js');
+const { isolateVerb, isolateNoun } = require("../helper.js");
 
 module.exports = (db) => {
   //**********************GET********************** */
@@ -58,23 +58,15 @@ module.exports = (db) => {
     const noun = isolateNoun(data);
     let argument = null;
 
-    if (verb === 'watch') {
-      argument = 1;
-    } else if (verb === 'visit') {
-      argument = 2;
-    } else if (verb === 'read') {
-      argument = 3;
-    } else if (verb === 'buy') {
-      argument = 4;
-    } else {
-      argument = 5;
-    }
-
-
+    if (verb === "watch") argument = 1;
+    else if (verb === "visit") argument = 2;
+    else if (verb === "read") argument = 3;
+    else if (verb === "buy") argument = 4;
+    else argument = 5;
 
     db.query(
       `INSERT INTO lists_todo (title, user_id, category_id) VALUES ($1, $2, $3) RETURNING *;`,
-      [data, req.cookies.username, noun]
+      [data, req.cookies.username, argument]
     )
       .then((result) => {
         const options = {
