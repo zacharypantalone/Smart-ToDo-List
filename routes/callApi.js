@@ -91,12 +91,27 @@ module.exports = (db) => {
         .then((insertRes) => res.json({ message: "toDo succesfully created ", toDo: insertRes.rows[0]  }));
       })
 
-
-
       .catch((err) => {
         console.log(err.message);
       });
   });
 
+
+
+  app.post("/delete/:id", (req, res) => {
+    db.query(
+      `DELETE FROM lists_todo WHERE id = $1;`,
+      [req.params.id]
+    ).then((result) => {
+      res.redirect('/main');
+    })
+  });
+
+
+
+
+
   return app;
 };
+
+

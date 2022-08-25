@@ -55,7 +55,7 @@ const createReminderElement = (reminderData) => {
   const ago = timeago.format(reminderData.create_date);
   const reminderHtml = `<article class="tweet">
         <div class="tweet-content">
-        <button class="delete-reminder">Delete</button>
+        
           <div class="name-and-user-img">
             <img class="user-img" src="${reminderData.img_url}">
             </div>
@@ -70,6 +70,12 @@ const createReminderElement = (reminderData) => {
               <i class="fa-solid fa-retweet" onMouseOver="this.style.color='rgb(255, 217, 19)'" onMouseOut="this.style.color='rgb(78, 81, 83)'"></i>
               <i class="fa-solid fa-heart" onMouseOver="this.style.color='rgb(255, 85, 85)'" onMouseOut="this.style.color='rgb(78, 81, 83)'"></i>
             </div>
+
+
+            <form class="form-inline" method="POST" action="/reminder/json/delete/${reminderData.id}">
+            <button type="submit" class="btn btn-primary">Delete</button>
+
+
           </footer>
           </article>`;
 
@@ -88,3 +94,5 @@ $(document).ready(async function() {
   //console.log("data2", data);
   renderReminders(data);
 });
+
+
