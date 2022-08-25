@@ -55,6 +55,7 @@ const createReminderElement = (reminderData) => {
   const ago = timeago.format(reminderData.date);
   const reminderHtml = `<article class="tweet">
         <div class="tweet-content">
+        <button class="delete-reminder">Delete</button>
           <div class="name-and-user-img">
             <img class="user-img" src="${reminderData.img}">
             </div>
