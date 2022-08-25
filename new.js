@@ -144,24 +144,32 @@ app.get("/reminder/json", (req, res) => {
 
 app.post("/reminder/json", (req, res) => {
   const data = req.body.text;
+  const categoryName = isolateVerb(data);
+  db.query(`SELECT id FROM categories WHERE category_name = $1;`, [categoryName])
+  .then((categoryId) => {
+    db.query(
+      `INSERT INTO lists_todo (title, user_id, category_id) VALUES ($1, $2, $3) RETURNING *;`,
+      [data, req.cookies.username, categoryId]
+    )
+    .then((result) => {
+
+    })
+  });
 ////////////////
   // if (isolateVerb(data) === "watch") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (1, 'watch');`);
+  //   db.query(`SELECT id FROM categories WHERE category_name = 'watch';`);
 
   // } else if (isolateVerb(data) === "visit") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (2, 'visit');`);
+  //   db.query(`SELECT id FROM categories WHERE category_name = 'visit';`);
 
   // } else if (isolateVerb(data) === "read") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (3, 'read');`);
+  //   db.query(`SELECT id FROM categories WHERE category_name = 'read';`);
 
   // } else if (isolateVerb(data) === "buy") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (4, 'buy');`);
+  //   db.query(`SELECT id FROM categories WHERE category_name = 'buy';`);
   // }
 ///////////////////
-  db.query(
-    `INSERT INTO lists_todo (title, user_id) VALUES ($1, $2) RETURNING *;`,
-    [data, req.cookies.username]
-  )
+
     .then((result) => {
       const options = {
         method: "GET",
@@ -208,3 +216,11 @@ app.post("/register", (req, res) => {
       console.log(err.message);
     });
 });
+
+
+// get/reminders this should return all the reminder for the user
+// get/reminders/:reminder_id return and individual reminder and all of its information
+// post/reminders/new create a new reminder and insert it into the database
+// post/reminders/:reminder_id edit the reminder
+// delete/reminders/:reminder_id delete the reminder
+
