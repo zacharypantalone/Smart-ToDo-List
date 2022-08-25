@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 // Web server config
-const PORT = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
@@ -67,7 +67,7 @@ const { isolateVerb, isolateNoun } = require('./helper.js');
 // Separate them into separate routes files (see above).
 
 
-const port = process.env.PORT || 3000;
+
 app.listen(port, (err) => console.log(err || `listening on port ${port} 😎`));
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
