@@ -1,9 +1,9 @@
 // Client facing scripts here
 const loadReminders = async function() {
   let reminders = [];
-  await $.get("/reminder/json").then((array) => {
-   // console.log(array);
-    reminders = [...array];
+  await $.get("/reminder/json").then((response) => {
+   console.log(response);
+    reminders = [...response.toDos];
   });
 
   return reminders;
@@ -52,12 +52,12 @@ const injectionProtection = function(str) {
 
 const createReminderElement = (reminderData) => {
 
-  const ago = timeago.format(reminderData.date);
+  const ago = timeago.format(reminderData.create_date);
   const reminderHtml = `<article class="tweet">
         <div class="tweet-content">
         <button class="delete-reminder">Delete</button>
           <div class="name-and-user-img">
-            <img class="user-img" src="${reminderData.img}">
+            <img class="user-img" src="${reminderData.img_url}">
             </div>
             <div class="tweet-text">
               <p>${injectionProtection(reminderData.title)}</p>

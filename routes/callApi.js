@@ -2,6 +2,7 @@ const express = require("express");
 const app = express.Router();
 const axios = require("axios");
 const { isolateVerb, isolateNoun } = require("../helper.js");
+const { restart } = require("nodemon");
 
 module.exports = (db) => {
   //**********************GET********************** */
@@ -10,44 +11,45 @@ module.exports = (db) => {
     db.query(`SELECT * FROM lists_todo WHERE user_id = $1;`, [
       req.cookies.username,
     ]).then((result) => {
-      const promiseArr = [];
-      const imageData = [];
-      //  console.log("This is result:", result);
-      for (const item of result.rows) {
-        const input = isolateNoun(item.title);
+      res.json({ message: "Here are your to-do's.", toDos: result.rows })
+      // const promiseArr = [];
+      // const imageData = [];
+      // //  console.log("This is result:", result);
+      // for (const item of result.rows) {
+      //   const input = isolateNoun(item.title);
 
-        //      console.log("This is input:", input);
-        const options = {
-          method: "GET",
-          url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${input}`,
-          headers: {
-            "X-User-Agent": "desktop",
-            "X-Proxy-Location": "EU",
-            "X-RapidAPI-Key":
-              "c4cc5833bdmsh4beadf93e034785p129448jsnb00add367caf",
-            "X-RapidAPI-Host": "google-search3.p.rapidapi.com",
-          },
-        };
-        promiseArr.push(axios.request(options));
-      }
-      Promise.all(promiseArr)
-        .then((values) => {
-          // console.log(values);
-          values.forEach((value, index) => {
-            const item = result.rows[index];
+      //   //      console.log("This is input:", input);
+      //   const options = {
+      //     method: "GET",
+      //     url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${input}`,
+      //     headers: {
+      //       "X-User-Agent": "desktop",
+      //       "X-Proxy-Location": "EU",
+      //       "X-RapidAPI-Key":
+      //         "c4cc5833bdmsh4beadf93e034785p129448jsnb00add367caf",
+      //       "X-RapidAPI-Host": "google-search3.p.rapidapi.com",
+      //     },
+      //   };
+      //   promiseArr.push(axios.request(options));
+      // }
+      // Promise.all(promiseArr)
+      //   .then((values) => {
+      //     // console.log(values);
+      //     values.forEach((value, index) => {
+      //       const item = result.rows[index];
 
-            imageData.push({
-              img: value.data.image_results[0].image.src,
-              id: item.id,
-              title: item.title,
-              date: item.create_date,
-            });
-          });
-          res.json(imageData);
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
+      //       imageData.push({
+      //         img: value.data.image_results[0].image.src,
+      //         id: item.id,
+      //         title: item.title,
+      //         date: item.create_date,
+      //       });
+      //     });
+      //     res.json(imageData);
+      //   })
+      //   .catch(function (error) {
+      //     console.error(error);
+      //   });
     });
   });
 
