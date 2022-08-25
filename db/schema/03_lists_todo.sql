@@ -4,5 +4,6 @@ CREATE TABLE lists_todo (
   title VARCHAR(255),
   create_date TIMESTAMP DEFAULT now(),
   user_id INTEGER REFERENCES users(id),
-  category_id INTEGER REFERENCES categories(id)
+  category_id INTEGER REFERENCES categories(id),
+  img_url VARCHAR(255)
 );
