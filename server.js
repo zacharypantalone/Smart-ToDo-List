@@ -8,7 +8,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const axios = require("axios");
+
 
 
 // PG database client/connection setup
@@ -39,11 +39,22 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
+const LoginRoutes = require("./routes/login");
+const RegisterRoutes = require("./routes/register");
+const MainRoutes = require("./routes/main");
+const CallApiRoutes = require("./routes/callApi");
+
+
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+app.use("/", LoginRoutes(db));
+app.use("/register", RegisterRoutes(db));
+app.use("/main", MainRoutes(db));
+app.use("/reminder/json", CallApiRoutes(db));
+
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
@@ -55,156 +66,12 @@ const { isolateVerb, isolateNoun } = require('./helper.js');
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-app.get("/login", (req, res) => {
-  res.render("login");
-});
 
-app.get("/main", (req, res) => {
-  db.query(`SELECT name FROM users WHERE id = $1;`, [
-    req.cookies.username,
-  ]).then((result) => {
-    const templateVars = { username: result.rows[0].name };
-
-    res.render("main", templateVars);
-  });
-});
-
-app.get("/profile", (req, res) => {
-  res.render("profile");
-});
-
-app.get("/register", (req, res) => {
-  res.render("register");
-});
-
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
-});
-
-app.post("/main", (req, res) => {
-  // using encrypted cookies\
-
-  const username = req.body.username;
-
-  db.query(`SELECT * FROM users WHERE name = $1;`, [username]).then(
-    (result) => {
-      const id = result.rows[0].id;
-      res.cookie("username", id).redirect("/main");
-    }
-  );
-});
-
-app.get("/reminder/json", (req, res) => {
-  db.query(`SELECT * FROM lists_todo;`).then((result) => {
-    const promiseArr = [];
-    const imageData = [];
-    console.log("This is result:", result);
-    for (const item of result.rows) {
-      const input = item.title;
+const port = process.env.PORT || 3000;
+app.listen(port, (err) => console.log(err || `listening on port ${port} 😎`));
+////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-      console.log("This is input:", input);
-      const options = {
-        method: "GET",
-        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${input}`,
-        headers: {
-          "X-User-Agent": "desktop",
-          "X-Proxy-Location": "EU",
-          "X-RapidAPI-Key":
-            "8f9fa3a9bemsh3da9a9c90adb9b5p1b07fajsn44bb79f22c85",
-          "X-RapidAPI-Host": "google-search3.p.rapidapi.com",
-        },
-      };
-
-      promiseArr.push(axios.request(options));
-    }
-    Promise.all(promiseArr)
-      .then((values) => {
-        console.log(values);
-        values.forEach((value, index) => {
-          const item = result.rows[index];
-
-          imageData.push({
-            img: value.data.image_results[0].image.src,
-            id: item.id,
-            title: item.title,
-            date: item.create_date,
-          });
-        });
-        res.json(imageData);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-
-  });
-});
-
-app.post("/reminder/json", (req, res) => {
-  const data = req.body.text;
-////////////////
-  // if (isolateVerb(data) === "watch") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (1, 'watch');`);
-
-  // } else if (isolateVerb(data) === "visit") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (2, 'visit');`);
-
-  // } else if (isolateVerb(data) === "read") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (3, 'read');`);
-
-  // } else if (isolateVerb(data) === "buy") {
-  //   db.query(`INSERT INTO categories (id, category_name) VALUES (4, 'buy');`);
-  // }
-///////////////////
-  db.query(
-    `INSERT INTO lists_todo (title, user_id) VALUES ($1, $2) RETURNING *;`,
-    [data, req.cookies.username]
-  )
-    .then((result) => {
-      const options = {
-        method: "GET",
-        url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${data}`,
-        headers: {
-          "X-User-Agent": "desktop",
-          "X-Proxy-Location": "EU",
-          "X-RapidAPI-Key":
-            "8f9fa3a9bemsh3da9a9c90adb9b5p1b07fajsn44bb79f22c85",
-          "X-RapidAPI-Host": "google-search3.p.rapidapi.com",
-        },
-      };
-      axios
-        .request(options)
-        .then(function (response) {
-          console.log("response", response.data.image_results[0].image.src);
-          res.json({ img: response.data.image_results[0].image.src });
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-
-      console.log(result.rows[0]);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-});
-
-app.post("/register", (req, res) => {
-  const name = req.body.username;
-  const password = req.body.password;
-  let id;
-  db.query(`INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *;`, [
-    name,
-    password,
-  ])
-    .then((result) => {
-      id = result.rows[0].id;
-      res.cookie("username", id).redirect("/main");
-    })
-
-    .catch((err) => {
-      console.log(err.message);
-    });
-});
+// app.get("/profile", (req, res) => {
+//   res.render("profile");
+// });

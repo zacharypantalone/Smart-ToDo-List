@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Information -->
+    <title>Tweeter - Home Page</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" type="text/css" />
+       <!-- add font Bungee and Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+
+    <!-- App CSS -->
+    <link rel="stylesheet" href="/styles/main2.css" type="text/css" />
+  
+
+    <!-- Favicon image -->
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="icon" type="image/png" href="/images/favicon.png"/>
+
+    <!-- External JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js" integrity="sha512-SVDh1zH5N9ChofSlNAK43lcNS7lWze6DTVx1JCXH1Tmno+0/1jMpdbR8YDgDUfcUrPp1xyE53G42GFrcM0CMVg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- App JS -->
+    <script type="text/javascript" src="/scripts/client.js" defer></script>
+    <script src="/scripts/composer-char-counter.js" defer></script>
+    
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head >
+  <body>
+    <!-- Top nav bar (fixed) -->
+    <nav>
+      <div id="logandbird">
+        <span><%= username %> </span>
+        <a href="/profile" class="register">Edit profile</a>
+      </div>
+      
+          <button>LogOut<i class="btn btn-danger"></i></button>
+       
+    </nav>
+
+    <!-- Page-specific (main) content here -->
+    <main class="container" id="container">
+      <section class="new-tweet">
+        <h2 >What are you humming about?</h2>
+        <div id="nocontent"> 
+          <p id="nocontenttext"> mensage will appears here </p>
+        </div>
+        <form id="formtotype" action="/tweets" method="POST">
+          <textarea name="text" id="tweet-text"></textarea>
+          <div class="button">
+            <button id="load-tweet" type="submit">Tweet</button>
+            <output id="counter" name="counter" class="counter" for="tweet-text"></output>
+          </div>
+        </form>
+      </section>
+      <div id="tweets-container" >
+        <!-- move to public/script/client.js -->
+      </div>      
+    </main>
+    
+   
+  </body>
+</html>

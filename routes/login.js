@@ -12,20 +12,27 @@ module.exports = (db) => {
 
 //**********************GET********************** */
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        console.log(users);
-        res.render("loginN");
-        //res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
+    res.render("loginN");
   });
-  return router;
-};
+
 
 //**********************POST********************** */
+  router.post("/", (req, res) => {
+
+    const username = req.body.username;
+
+    db.query(`SELECT * FROM users WHERE name = $1;`, [username])
+    .then((result) => {
+     
+      if (result.rowCount !== 0) {
+        const id = result.rows[0].id;
+        res.cookie("username", id).redirect("main");
+      } else {
+        res.render("register");
+      }
+      }
+
+    );
+  })
+  return router;
+};
