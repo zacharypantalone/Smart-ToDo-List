@@ -9,8 +9,8 @@ const isolateNoun = (noun) => {
   return negateVerb.join(" ");
 };
 
-console.log(isolateVerb("Watch Lord Of The Rings"));
-console.log(isolateNoun("Watch Lord Of The Rings"));
+//console.log(isolateVerb("Watch Lord Of The Rings"));
+//console.log(isolateNoun("Watch Lord Of The Rings"));
 /*
 if (isolateVerb(data) === "watch") {
   db.query(`INSERT INTO lists_todo (category_id) VALUES (1) ;`);

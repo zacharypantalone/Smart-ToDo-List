@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS categories CASCADE;
 CREATE TABLE categories (
   id INTEGER PRIMARY KEY,
-  name VARCHAR(50)
+  category_name VARCHAR(50)
 );

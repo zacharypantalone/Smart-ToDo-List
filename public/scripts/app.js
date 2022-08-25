@@ -2,7 +2,7 @@
 const loadReminders = async function() {
   let reminders = [];
   await $.get("/reminder/json").then((array) => {
-    console.log(array);
+   // console.log(array);
     reminders = [...array];
   });
 
@@ -33,12 +33,12 @@ const onSubmit = async function(event) {
   //   setTimeout(() => $('#errorTwo').slideUp(), 3000);
   //   return;
   // }
-  console.log(form);
+  //console.log(form);
 
   $.post("/reminder/json", data).then(async() => {
 
     const data = await loadReminders();
-    console.log("data", data);
+   // console.log("data", data);
     renderReminders(data);
     this.reset();
   });
@@ -79,14 +79,10 @@ const createReminderElement = (reminderData) => {
 // MAKE SURE TO ASK A MENTOR IF IT'S APPROPRIATE FOR THIS TO BE IN HERE //
 
 
-
-
-
-
 $(document).ready(async function() {
   $(".form-inline").on("submit", onSubmit);
 
   const data = await loadReminders();
-  console.log("data2", data);
+  //console.log("data2", data);
   renderReminders(data);
 });
