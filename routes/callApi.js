@@ -54,13 +54,23 @@ module.exports = (db) => {
   //**********************POST********************** */
   app.post("/", (req, res) => {
     const data = req.body.text;
-    const verb = isolateVerb(data);
+    const verb = isolateVerb(data).toLowerCase();
     const noun = isolateNoun(data);
+    let argument = null;
+
+    if (verb === 'watch') {
+      argument = 1;
+    } else if (verb === 'visit') {
+      argument = 2;
+    } else if (verb === 'read') {
+      argument = 3;
+    } else if (verb === 'buy') {
+      argument = 4;
+    } else {
+      argument = 5;
+    }
 
 
-    db.query(
-      `SELECT categories.id FROM categories WHERE category_name = $1;`, [verb])
-      .then((result) => {put INSERT INTO lists_todo in here})
 
     db.query(
       `INSERT INTO lists_todo (title, user_id, category_id) VALUES ($1, $2, $3) RETURNING *;`,

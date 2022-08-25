@@ -82,6 +82,7 @@ const createReminderElement = (reminderData) => {
 
 $(document).ready(async function() {
   $(".form-inline").on("submit", onSubmit);
+//change the.form-inline to a ID: thatwe have to create at main,ejs
 
   const data = await loadReminders();
   //console.log("data2", data);
