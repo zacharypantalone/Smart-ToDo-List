@@ -66,6 +66,10 @@ module.exports = (db) => {
     else if (verb === "buy") argument = 4;
     else argument = 5;
 
+    const displayCategory = (verb) => {
+      return `${verb} ToDo List`;
+    };
+
     const options = {
       method: "GET",
       url: `https://google-search3.p.rapidapi.com/api/v1/image/q=${noun}`,

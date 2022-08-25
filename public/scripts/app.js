@@ -55,7 +55,7 @@ const createReminderElement = (reminderData) => {
   const ago = timeago.format(reminderData.create_date);
   const reminderHtml = `<article class="tweet">
         <div class="tweet-content">
-        
+
           <div class="name-and-user-img">
             <img class="user-img" src="${reminderData.img_url}">
             </div>
@@ -74,6 +74,21 @@ const createReminderElement = (reminderData) => {
 
             <form class="form-inline" method="POST" action="/reminder/json/delete/${reminderData.id}">
             <button type="submit" class="btn btn-primary">Delete</button>
+
+
+            <div class="dropdown">
+            <button class="dropbtn">Dropdown</button>
+            <div class="dropdown-content">
+              <a href="#">EAT</a>
+              <a href="#">WATCH</a>
+              <a href="#">READ</a>
+              <a href="#">BUY
+              </a>
+            </div>
+          </div>
+
+
+
 
 
           </footer>
