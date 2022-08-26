@@ -2,7 +2,7 @@
 const loadReminders = async function() {
   let reminders = [];
   await $.get("/reminder/json").then((response) => {
-   console.log(response);
+    console.log(response);
     reminders = [...response.toDos];
   });
 

@@ -66,9 +66,9 @@ module.exports = (db) => {
     else if (verb === "buy") argument = 4;
     else argument = 5;
 
-    const displayCategory = (verb) => {
-      return `${verb} ToDo List`;
-    };
+    // const displayCategory = (verb) => {
+    //   return `${verb} ToDo List`;
+    // };
 
     const options = {
       method: "GET",
