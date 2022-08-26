@@ -1,15 +1,15 @@
 // Client facing scripts here
-const loadReminders = async function() {
+const loadReminders = async function () {
   let reminders = [];
   await $.get("/reminder/json").then((response) => {
-   console.log(response);
+    console.log(response);
     reminders = [...response.toDos];
   });
 
   return reminders;
 };
 
-const renderReminders = function(reminders) {
+const renderReminders = function (reminders) {
   $("#reminder-container").empty();
   for (let reminder of reminders) {
     const text = createReminderElement(reminder);
@@ -17,7 +17,7 @@ const renderReminders = function(reminders) {
   }
 };
 
-const onSubmit = async function(event) {
+const onSubmit = async function (event) {
   event.preventDefault();
   const form = $(this);
   const data = form.serialize();
@@ -35,16 +35,16 @@ const onSubmit = async function(event) {
   // }
   //console.log(form);
 
-  $.post("/reminder/json", data).then(async() => {
+  $.post("/reminder/json", data).then(async () => {
 
     const data = await loadReminders();
-   // console.log("data", data);
+    // console.log("data", data);
     renderReminders(data);
     this.reset();
   });
 };
 
-const injectionProtection = function(str) {
+const injectionProtection = function (str) {
   let div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
@@ -53,13 +53,14 @@ const injectionProtection = function(str) {
 const createReminderElement = (reminderData) => {
 
   const ago = timeago.format(reminderData.create_date);
-  const reminderHtml = `<article class="tweet">
-        <div class="tweet-content">
-        
+  const reminderHtml = `
+    <article class="reminder">
+        <div class="reminder-content">
+
           <div class="name-and-user-img">
             <img class="user-img" src="${reminderData.img_url}">
             </div>
-            <div class="tweet-text">
+            <div class="reminder-text">
               <p>${injectionProtection(reminderData.title)}</p>
             </div>
           </div>
@@ -86,9 +87,9 @@ const createReminderElement = (reminderData) => {
 // MAKE SURE TO ASK A MENTOR IF IT'S APPROPRIATE FOR THIS TO BE IN HERE //
 
 
-$(document).ready(async function() {
+$(document).ready(async function () {
   $(".form-inline").on("submit", onSubmit);
-//change the.form-inline to a ID: thatwe have to create at main,ejs
+  //change the.form-inline to a ID: thatwe have to create at main,ejs
 
   const data = await loadReminders();
   //console.log("data2", data);
