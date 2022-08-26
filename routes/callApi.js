@@ -5,12 +5,14 @@ const { isolateVerb, isolateNoun } = require("../helper.js");
 const { restart } = require("nodemon");
 
 module.exports = (db) => {
+
   //**********************GET********************** */
 
   app.get("/", (req, res) => {
     db.query(`SELECT * FROM lists_todo WHERE user_id = $1;`, [
       req.cookies.username,
     ]).then((result) => {
+      console.log(result.rows);
       res.json({ message: "Here are your to-do's.", toDos: result.rows })
       // const promiseArr = [];
       // const imageData = [];
@@ -56,6 +58,7 @@ module.exports = (db) => {
   //**********************POST********************** */
   app.post("/", (req, res) => {
     const data = req.body.text;
+    console.log(data);
     const verb = isolateVerb(data).toLowerCase();
     const noun = isolateNoun(data);
     let argument = null;
@@ -99,10 +102,12 @@ module.exports = (db) => {
 
 
   app.post("/delete/:id", (req, res) => {
+    console.log(req.params.id);
     db.query(
       `DELETE FROM lists_todo WHERE id = $1;`,
       [req.params.id]
     ).then((result) => {
+      console.log(result);
       res.redirect('/main');
     })
   });
