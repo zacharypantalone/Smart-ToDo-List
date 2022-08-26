@@ -1,0 +1,16 @@
+ id |         title          |        create_date         | user_id | category_id |                                                        img_url                                                        
+----+------------------------+----------------------------+---------+-------------+-----------------------------------------------------------------------------------------------------------------------
+  1 | watch movie            | 2022-08-26 16:09:04.434696 |       1 |           1 | https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg
+  2 | read Harry Potter      | 2022-08-26 16:09:04.434696 |       2 |           2 | https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg
+  8 | read book              | 2022-08-26 16:44:38.32537  |       3 |           3 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAwBRLl12VGVgR2FNoQhDh_R7F0OxfvLDtHhU29UEYWK1ROhaZUqSEVyijFA&s
+  9 | play pubg              | 2022-08-26 17:20:37.650394 |       4 |           5 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgGmxm071fh7qjwplLPRfj9AOyBUhHgsV8FLqvu1G7sBchTZ3TTV4H3Lrty3E&s
+ 10 | read book\r           +| 2022-08-26 17:20:44.909402 |       4 |           3 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAwBRLl12VGVgR2FNoQhDh_R7F0OxfvLDtHhU29UEYWK1ROhaZUqSEVyijFA&s
+    |                        |                            |         |             | 
+ 11 | watch topgun           | 2022-08-26 17:20:55.286661 |       4 |           1 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrSGjVeSuHfA77mriwrik_Bg4x0iecB7VQOAsLmo0gn1jU9Ojafh1Ts5qI0Cw&s
+ 12 | eat avocado            | 2022-08-26 17:21:17.944052 |       4 |           5 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJkQYMKGsPj3_-7CEcgZXsMyRSptKNK_fYcgrqQS87sbu1sUmCDE09EdW3ujU&s
+ 13 | ride wakeboard         | 2022-08-26 17:21:32.990553 |       4 |           5 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlldCEupctsRftYghLcYSYliAX020Rcnjur6OjmPcOJgq08_ItLsmYJa4NaLs&s
+ 14 | watch flamengo\r      +| 2022-08-26 17:21:58.113675 |       4 |           1 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGMS7HbHCt2xDsPuF0ztjsS9qk2bCDogGn_dF3iwwZSiAr0WJ48jn4BIDoHA&s
+    |                        |                            |         |             | 
+ 15 | play ronaldinho gaucho | 2022-08-26 17:25:11.82209  |       4 |           5 | https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zoKc23f8hyoIcmsiOPrfiTKSC5h2y2tZofHKWgMo63we7X7-C-7LeFVuhSo&s
+(10 rows)
+
