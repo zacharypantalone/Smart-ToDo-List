@@ -1,8 +1,135 @@
 .reminder {
   display:flex;
   flex-direction: column;
-  width: 100%;
   border: 3px solid black;
   padding: 10px;
   margin-bottom: 1em;
+}
+
+main {
+  width: 100%;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  font-size: 20px;
+  padding-top: 19.5em;
+}
+
+form {
+  border-style: none;
+}
+
+textarea {
+  border-style: none;
+  outline:none;
+  border-bottom: solid;
+  background: transparent;
+  width: 100%;
+  font-size:larger ;
+  resize: none;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+}
+
+button  {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Bungee', cursive;
+  font-size: 30px;
+  color: azure;
+  background-color: #1723c4;
+  margin-top: 10px;
+}
+
+#load-tweet:hover {
+  background-color: #1c9222;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-4px);
+}
+
+.counter {
+  font-family: 'Bungee', cursive;
+  align-self: center;
+  font-size: 30px;
+}
+
+/* section article tweeter*/
+
+#tweets-container {
+  word-break: break-all;
+}
+
+.new-section {
+  margin-top: 2em;
+  border: solid;
+  padding-right: 1.5em;
+  padding-left: 1.5em ;
+}
+
+.new-section:hover {
+
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.733);
+}
+
+.article-header{
+  justify-content: space-between;
+  margin-top: 20px;
+  width: auto;
+}
+
+.faceName{
+  display: flex;
+}
+
+.nam {
+  margin-left: 15px;
+}
+
+.new-text {
+  display: flex;
+  width: 100%;
+  font-size:larger ;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: solid;
+  align-items: center;
+}
+
+#treeicon {
+  color: #1723c4
+}
+/* change icon color when mouse hovers over  */
+.fa-flag:hover{
+  color: rgb(150, 119, 19);
+}
+.fa-retweet:hover{
+  color: rgb(150, 119, 19);
+}
+.fa-heart:hover{
+  color: rgb(150, 119, 19);
+}
+
+/* to error */
+
+#nocontent {
+  display:none;
+}
+
+#nocontenttext {
+  border: solid;
+  color: red;
+  height: 3.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+  text-transform: uppercase;
 }

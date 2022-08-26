@@ -43,7 +43,7 @@ const LoginRoutes = require("./routes/login");
 const RegisterRoutes = require("./routes/register");
 const MainRoutes = require("./routes/main");
 const CallApiRoutes = require("./routes/callApi");
-
+const ProfileRoutes = require("./routes/profile");
 
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
@@ -54,6 +54,7 @@ app.use("/", LoginRoutes(db));
 app.use("/register", RegisterRoutes(db));
 app.use("/main", MainRoutes(db));
 app.use("/reminder/json", CallApiRoutes(db));
+app.use("/profile", ProfileRoutes(db));
 
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
