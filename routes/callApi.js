@@ -8,7 +8,7 @@ module.exports = (db) => {
   //**********************GET********************** */
 
   app.get("/", (req, res) => {
-    db.query(`SELECT * FROM lists_todo WHERE user_id = $1;`, [
+    db.query(`SELECT lists_todo.*, category_name FROM lists_todo INNER JOIN categories ON categories.id = category_id WHERE user_id = $1;`, [
       req.cookies.username,
     ]).then((result) => {
       res.json({ message: "Here are your to-do's.", toDos: result.rows })

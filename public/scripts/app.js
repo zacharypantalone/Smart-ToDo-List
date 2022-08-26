@@ -22,18 +22,6 @@ const onSubmit = async function (event) {
   const form = $(this);
   const data = form.serialize();
 
-  // if (data.length <= 5) {
-  //   $('#error').slideDown();
-  //   setTimeout(() => $('#error').slideUp(), 3000);
-  //   return;
-  // }
-
-  // if (data.length > 145) {
-  //   $('#errorTwo').slideDown();
-  //   setTimeout(() => $('#errorTwo').slideUp(), 3000);
-  //   return;
-  // }
-  //console.log(form);
 
   $.post("/reminder/json", data).then(async () => {
 
@@ -54,32 +42,38 @@ const createReminderElement = (reminderData) => {
 
   const ago = timeago.format(reminderData.create_date);
   const reminderHtml = `
-    <article class="reminder">
-        <div class="reminder-content">
 
-          <div class="name-and-user-img">
-            <img class="user-img" src="${reminderData.img_url}">
+  <div class="container" style="margin-top:50px ;">
+        <div class="row">
+            <div >
+                <div class="card-sl">
+
+                    <div class="card-image">
+                        <img src="${reminderData.img_url}"/>
+                    </div>
+
+                    <a class="card-action" href="#"><i class="fa fa-heart"></i> ${reminderData.category_name}
+                    </a>
+
+
+                    <div class="card-heading">
+                    <p>${injectionProtection(reminderData.title)}</p>
+                    </div>
+
+
+                    <div class="card-text">
+                    <span>${ago}</span>
+                    </div>
+
+                    <form class="form-inline" method="POST" action="/reminder/json/delete/${reminderData.id}">
+                    <button type="submit" class="card-button">Delete</button>
+
+                </div>
             </div>
-            <div class="reminder-text">
-              <p>${injectionProtection(reminderData.title)}</p>
-            </div>
-          </div>
-          <footer class="time-stamp">
-          <span>${ago}</span>
-            <div class="bottom-right-buttons">
-              <i class="fa-solid fa-flag" onMouseOver="this.style.color='rgb(31, 193, 27)'" onMouseOut="this.style.color='rgb(78, 81, 83)'"></i>
-              <i class="fa-solid fa-retweet" onMouseOver="this.style.color='rgb(255, 217, 19)'" onMouseOut="this.style.color='rgb(78, 81, 83)'"></i>
-              <i class="fa-solid fa-heart" onMouseOver="this.style.color='rgb(255, 85, 85)'" onMouseOut="this.style.color='rgb(78, 81, 83)'"></i>
-            </div>
+        </div>
 
 
-            <form class="form-inline" method="POST" action="/reminder/json/delete/${reminderData.id}">
-            <button type="submit" class="btn btn-primary">Delete</button>
-
-
-          </footer>
-          </article>`;
-
+  `;
 
   return reminderHtml;
 };
@@ -88,7 +82,7 @@ const createReminderElement = (reminderData) => {
 
 
 $(document).ready(async function () {
-  $(".form-inline").on("submit", onSubmit);
+  $("#submitreminder").on("submit", onSubmit);
   //change the.form-inline to a ID: thatwe have to create at main,ejs
 
   const data = await loadReminders();

@@ -1,17 +1,41 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
 
-  background: rgb(163, 208, 219);
-  background: linear-gradient(
-    227deg,
-    rgba(163, 208, 219, 1) 0%,
-    rgba(163, 176, 219, 1) 20%,
-    rgba(163, 173, 219, 1) 34%,
-    rgba(163, 219, 208, 1) 59%,
-    rgba(163, 208, 219, 1) 74%,
-    rgba(163, 208, 219, 1) 100%
-  );
+header{
+	background: none;
+  flex-direction: row;
+    justify-content: space-between;
+    font-family: system-ui;
 }
+
+#allheader{
+  place-content: space-around;
+}
+
+.brand-logo{
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	margin: 10px 10px 0 0;
+	float: right;
+}
+
+
+#remidercontainer{
+  text-align: -webkit-center;
+  padding-bottom: 30px;
+ }
+
+#remiderword{
+  text-align: justify;
+  padding-top: 30px;
+
+}
+
+#reminder-text{
+  text-align: justify;
+  width: 100%;
+  resize: none;
+
+}
+
+
+
