@@ -1,3 +1,16 @@
+// Display category
+const categories = {
+  1: 'watch',
+  2: 'visit',
+  3: 'read',
+  4: 'buy',
+  5: 'other'
+};
+
+const getCategoryById = (id) => {
+  return categories[id];
+};
+
 // Client facing scripts here
 const loadReminders = async function () {
   let reminders = [];
@@ -38,6 +51,16 @@ const injectionProtection = function (str) {
   return div.innerHTML;
 };
 
+const generateDropdownItem = (id) => {
+  let output = "";
+  for (const key in categories) {
+    if (Number(key) !== Number(id)) {
+      output += `<a href="#">${getCategoryById(key)}</a>`;
+    };
+  };
+  return output;
+};
+
 const createReminderElement = (reminderData) => {
 
   const ago = timeago.format(reminderData.create_date);
@@ -49,7 +72,7 @@ const createReminderElement = (reminderData) => {
                 <div class="card-sl">
 
                     <div class="card-image">
-                        <img src="${reminderData.img_url}"/>
+                        <img class="user-img" src="${reminderData.img_url}"/>
                     </div>
 
                     <a class="card-action" href="#"><i class="fa fa-heart"></i> ${reminderData.category_name}
