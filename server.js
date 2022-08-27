@@ -70,6 +70,3 @@ app.listen(port, (err) => console.log(err || `listening on port ${port} 😎`));
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// app.get("/profile", (req, res) => {
-//   res.render("profile");
-// });

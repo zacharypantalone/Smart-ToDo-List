@@ -1,10 +1,49 @@
+# WELCOME TO Smart TODO List!
+
+Smart TODO List is an application that sorts your reminders for you automitcally! What a relief!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Dependencies
+
+- Node 10.x or above
+- NPM 5.x or above
+- PG 6.x
+
+
+
+
+
+
+
+
+
+
+
+
+
 # LHL Node Skeleton
 
-jsdiasjdiasdjaidjais
+
 
 ## Project Setup
 
-heyhyeheyhyegrfagsfgadfg
+
 
 The following steps are only for _one_ of the group members to perform.
 
@@ -44,8 +83,3 @@ The following steps are only for _one_ of the group members to perform.
   - It runs through each of the files, in order, and executes them against the database.
   - Note: you will lose all newly created (test) data each time this is run, since the schema files will tend to `DROP` the tables and recreate them.
 
-## Dependencies
-
-- Node 10.x or above
-- NPM 5.x or above
-- PG 6.x
