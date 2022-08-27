@@ -2,12 +2,21 @@
 
 Smart TODO List is an application that sorts your reminders for you automitcally! What a relief!
 
+To get started, make sure you are in the directory Smart-ToDo-List, run "run npm local" in your 
+terminal, and Visit `http://localhost:3000/` ! 
+
+Have Fun!
 
 
 
 
 
-
+![image info](./public/image/Wireframe.png)
+![image info](./public/image/ERD.png)
+![image info](./public/image/login.png)
+![image info](./public/image/register.png)
+![image info](./public/image/reminders.png)
+![image info](./public/image/update%20profile.png)
 
 
 
@@ -24,6 +33,16 @@ Smart TODO List is an application that sorts your reminders for you automitcally
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+- axios: 0.27.2,
+- chalk: 2.4.2,
+- cookie-parser: 1.4.6,
+- dotenv: 2.0.0,
+- ejs: 2.6.2,
+- express: 4.17.1,
+- morgan: 1.9.1,
+- pg: 8.5.0,
+- sass: 1.35.1
+- nodemon: 2.0.19
 
 
 
@@ -68,11 +87,11 @@ The following steps are only for _one_ of the group members to perform.
 
 - Check the db folder to see what gets created and seeded in the SDB
 
-7. Run the server: `npm run local`
+7. 
 
 - Note: nodemon is used, so you should not have to restart your server
 
-8. Visit `http://localhost:8080/`
+8. 
 
 ## Warnings & Tips
 
