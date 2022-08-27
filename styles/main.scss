@@ -1,10 +1,14 @@
+// body {
+//   background-image: url("/image/Backgroundlogin.bmp");
+//   background-size: auto;
+// }
 
 header{
 	background: none;
   flex-direction: row;
-    justify-content: space-between;
-    font-family: system-ui;
-    text-align-last: center;
+  justify-content: space-between;
+  font-family: system-ui;
+  text-align-last: center;
 }
 
 #allheader{
@@ -39,11 +43,13 @@ header{
 }
 
 .dropbtn {
-  background-color: #04AA6D;
-  color: white;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
   padding: 16px;
-  font-size: 16px;
+  font-size: 20px;
   border: none;
+  text-shadow: 0 0 black
+
 }
 
 .dropdown {
@@ -55,9 +61,10 @@ header{
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 160px;
+  min-width: 93px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  font-size: 16px;
 }
 
 .dropdown-content a {
@@ -71,7 +78,7 @@ header{
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {color: #f81b1b;}
 
 
 

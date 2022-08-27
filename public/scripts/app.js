@@ -1,10 +1,10 @@
 // Display category
 const categories = {
-  1: 'watch',
-  2: 'visit',
-  3: 'read',
-  4: 'buy',
-  5: 'other'
+  1: 'Watch',
+  2: 'Visit',
+  3: 'Read',
+  4: 'Buy',
+  5: 'Other'
 };
 
 const getCategoryById = (id) => {
@@ -84,7 +84,7 @@ const createReminderElement = (reminderData) => {
                       </div>
                     </div>
 
-                    
+
                     <div class="card-heading">
                     <p>${injectionProtection(reminderData.title)}</p>
                     </div>
@@ -95,7 +95,7 @@ const createReminderElement = (reminderData) => {
                     </div>
 
                     <form class="form-inline" method="POST" action="/reminder/json/delete/${reminderData.id}">
-                    <button type="submit" class="card-button">Delete</button>
+                    <button type="submit" class="card-button btn btn-outline-danger">Delete</button>
 
                 </div>
             </div>
