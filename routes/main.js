@@ -15,7 +15,14 @@ module.exports = (db) => {
     });
   });
 
-  return router;
-};
-
 //**********************POST********************** */
+router.post("/category", (req, res) => {
+  db.query(`UPDATE lists_todo SET category_id = $1 WHERE id = $2;`, [req.body.category, req.body.id])
+  .then(() => {
+    res.send("okay");
+  })
+})
+
+
+return router;
+};
