@@ -1,14 +1,17 @@
 // Display category
+const categories = {
+  1: 'watch',
+  2: 'visit',
+  3: 'read',
+  4: 'buy',
+  5: 'other'
+};
+
 const getCategoryById = (id) => {
-  const categories = {
-    1: 'watch',
-    2: 'vist',
-    3: 'read',
-    4: 'buy',
-    5: 'other'
-  };
   return categories[id];
 };
+
+
 
 // Client facing scripts here
 const loadReminders = async function () {
@@ -62,6 +65,16 @@ const injectionProtection = function (str) {
   return div.innerHTML;
 };
 
+const generateDropdownItem = (id) => {
+  let output = "";
+  for (const key in categories) {
+    if (Number(key) !== Number(id)) {
+      output += `<a class ="drop-down-cat" href="#">${getCategoryById(key)}</a>`;
+    };
+  };
+  return output;
+};
+
 const createReminderElement = (reminderData) => {
 
   console.log(reminderData);
@@ -71,7 +84,12 @@ const createReminderElement = (reminderData) => {
       <article class="reminder">
         <div class="reminder-content">
           <div class="name-and-user-img">
-          <p class="reminder-category">${getCategoryById(reminderData.category_id)}</p>
+          <div class="dropdown">
+            <button class="dropbtn ${reminderData.category_id} ${reminderData.id}">${getCategoryById(reminderData.category_id)}</button>
+            <div class="dropdown-content">
+              ${generateDropdownItem(reminderData.category_id)}
+            </div>
+          </div>
             <img class="user-img" src="${reminderData.img_url}">
             </div>
             <div class="reminder-text">
@@ -108,6 +126,22 @@ $(document).ready(async function () {
   const data = await loadReminders();
   //console.log("data2", data);
   renderReminders(data);
+
+  $("#reminder-container").on("click", ".drop-down-cat", function(event)  {
+    $(this).parent().siblings(".dropbtn").text($(this).text());
+    const category = $(this).parent().siblings(".dropbtn").text();
+    const categoryId = Object.keys(categories).find(key => categories[key] === category);
+    console.log(categoryId)
+    const id = $(this).parent().siblings(".dropbtn").attr("class").split(" ")[2];
+    console.log(category, id);
+      $.post("/main/category", {
+        category: categoryId,
+        id
+      });
+  });
+
+
+
 });
 
 

@@ -99,8 +99,6 @@ module.exports = (db) => {
       });
   });
 
-
-
   app.post("/delete/:id", (req, res) => {
     console.log(req.params.id);
     db.query(
